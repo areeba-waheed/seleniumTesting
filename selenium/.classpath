@@ -8,5 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/Areeba.PC/Downloads/selenium-server-standalone-3.9.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Areeba.PC/Downloads/selenium-server-3.9.1.zip"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
