@@ -1,6 +1,7 @@
 package co.areebs.selenium.demo.basic;
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -11,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 
 public class LaunchAppinChrome {
 
@@ -21,8 +21,8 @@ public class LaunchAppinChrome {
 
 	public static void main(String[] args) throws InterruptedException{
 		
-		//firefoxTest();
-		chromeTest();
+		firefoxTest();
+		//chromeTest();
 	
 	}
 
@@ -51,9 +51,15 @@ public class LaunchAppinChrome {
 		
 		testTitle(firefoxDriver);
 		testLogin(firefoxDriver);
-		testRegister(firefoxDriver);
+		//testRegister(firefoxDriver);
 		testUpdateProfileInfo(firefoxDriver);
-		testEvents(firefoxDriver);
+		//testEvents(firefoxDriver);
+		testDeleteEvent(firefoxDriver);
+		
+	}
+
+	private static void testDeleteEvent(WebDriver driver) throws InterruptedException {
+		
 		
 	}
 
@@ -73,10 +79,56 @@ public class LaunchAppinChrome {
 		
 	}
 
-	private static void testEvents(WebDriver driver2) {
-		// TODO Auto-generated method stub
+	private static void testEvents(WebDriver driver) throws InterruptedException {
+		
+		
+		//add an event 
+		WebElement add = driver.findElement(By.cssSelector("#addButton"));
+		
+		Actions action2 = new Actions(driver);
+		action2.moveToElement(add);
+		action2.click();
+		action2.perform();
+		Thread.sleep(1000);
+		
+		//make an event
+		WebElement name = driver.findElement(By.cssSelector("div.form-group:nth-child(3) > input:nth-child(1)"));
+		name.sendKeys("Graduation");
+		Thread.sleep(1000);
+		
+		WebElement startDate = driver.findElement(By.cssSelector("div.form-group:nth-child(4) > input:nth-child(1)"));
+		Actions action3 = new Actions(driver);
+		action3.moveToElement(startDate);
+		action3.click();
+		action3.perform();
+		By calendarXpath = By
+				.xpath("/html/body/jw-modal/div[1]/div/app-value-add/form/div[2]/input='"
+						+ 28 + "']");
+		driver.findElement(calendarXpath).click();
+		
+		
+		
+		Thread.sleep(1000);
+		
+		WebElement location = driver.findElement(By.cssSelector("div.form-group:nth-child(6) > input:nth-child(1)"));
+		location.sendKeys("California State University Northridge");
+		Thread.sleep(1000);
+		
+		WebElement description = driver.findElement(By.cssSelector("div.form-group:nth-child(7) > input:nth-child(1)"));
+		description.sendKeys("Graduation Ceremony of CECS department");
+		Thread.sleep(1000);
+		
+		WebElement cancel = driver.findElement(By.cssSelector("button.btn:nth-child(2)"));
+		
+		Actions action4 = new Actions(driver);
+		action4.moveToElement(cancel);
+		action4.click();
+		action4.perform();
+		Thread.sleep(1000);
+		
 		
 	}
+	
 
 	private static void testUpdateProfileInfo(WebDriver driver) throws InterruptedException {
 		Thread.sleep(1000);
@@ -107,9 +159,19 @@ public class LaunchAppinChrome {
 		Thread.sleep(1000);
 		
 		String message = driver.getCurrentUrl();
-		String actual = "https://eventsplanner.azurewebsites.net";
-		//assertEquals(message, actual);
+		String actual = "https://eventsplanner.azurewebsites.net/member/edit";
+		assertEquals(message, actual);
 		//System.out.println(driver.getWindowHandle());
+		
+		WebElement elemts = driver.findElement(By.cssSelector(".navbar-nav > li:nth-child(2) > a:nth-child(1)"));
+		
+		Actions action3 = new Actions(driver);
+		action3.moveToElement(elemts);
+		action3.click();
+		action3.perform();
+		Thread.sleep(1000);
+		driver.switchTo().alert().accept();
+		Thread.sleep(2000);
 	}
 
 	private static void testRegister(WebDriver driver) throws InterruptedException {
@@ -191,7 +253,7 @@ public class LaunchAppinChrome {
 		Thread.sleep(1000);
 		String message = driver.getCurrentUrl();
 		String actual = "https://eventsplanner.azurewebsites.net/events";
-		assertEquals(message, actual);
+		assertEquals(actual, message);
 		
 		//driver.quit();
 		
